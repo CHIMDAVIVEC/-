@@ -1,0 +1,185 @@
+<head>
+  <meta charset="utf-8">
+  <style>
+  table, th, td {
+    border: 1px solid black;
+  }
+  
+  p {
+    font-weight: bold;
+  }
+
+  th, td {
+    padding: 10px;
+  }
+  </style>
+  <title>
+    Калькулятор расчёта режимов резания (сверления)
+  </title>
+</head>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    TeX: {
+       equationNumbers: {  autoNumber: "AMS"  },
+       extensions: ["AMSmath.js", "AMSsymbols.js", "autobold.js"]
+    }
+  });
+  </script>
+  <script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  </script>
+  
+  <form method=post action="">
+    <!--p style="font-size:small" align="center">Калькулятор расчёта режимов резания (сверления)</p-->
+    <table align="center" height="97%" width="100%">
+      <tr>
+        <td rowspan="2">
+          <p style="font-size:large" align="center">Технические параметры</p>
+          <table>
+            {% for field in tech %}
+            <tr>
+              <td>{{ field.label }}</td>
+              <th>{{ field(size=12) }}</th>
+            </tr>
+            <tr>
+              <td colspan="2">
+                {% if field.errors %}
+                <p>
+                  {% for error in field.errors %}
+                  <p style="color:red;font-size:small">{{ error }}</p>
+                  {% endfor %}
+                </p>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </table>
+          <p style="font-size:large" align="center">Параметры учёта электроэнергии</p>
+          <table>
+            {% for field in electro %}
+            <tr>
+              <td>{{ field.label }}</td>
+              <th>{{ field(size=12) }}</th>
+            </tr>
+            <tr>
+              <td colspan="2">
+                {% if field.errors %}
+                <p>
+                  {% for error in field.errors %}
+                  <p style="color:red;font-size:small">{{ error }}</p>
+                  {% endfor %}
+                </p>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </table>
+        </td>
+        <td rowspan="2">
+          <p style="font-size:large" align="center">Экономические параметры</p>
+          <table>
+            {% for field in econom %}
+            <tr>
+              <td>{{ field.label }}</td>
+              <th>{{ field(size=12) }}</th>
+            </tr>
+            <tr>
+              <td colspan="2">
+                {% if field.errors %}
+                <p>
+                  {% for error in field.errors %}
+                  <p style="color:red;font-size:small">{{ error }}</p>
+                  {% endfor %}
+                </p>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </table>
+        </td>
+        <td rowspan="2">
+          <p style="font-size:large" align="center">Результаты</p>
+          <p style="font-size:medium" align="center">Режим максимальной стойкости</p>
+            <table>
+              {% for field in opt%}
+              <tr>
+                <td>
+                  {{ field.label }}</td>
+                <th>
+                  {% if field.data != None %}
+                  {{ field.data }}
+                  {% endif %}
+                </th>
+              </tr>
+              {% endfor %}
+            </table>
+              <p style="font-size:medium" align="center">Оптимальный режим</p>
+            <table>
+              {% for field in maxl %}
+              <tr>
+                <td>
+                  {{ field.label }}</td>
+                <th>
+                  {% if field.data != None %}
+                  {{ field.data }}
+                  {% endif %}
+                </th>
+              </tr>
+              {% endfor %}
+            </table>
+        </td>
+
+        <td width="40%" height="60%" align="center">
+          <p>
+            {% if result != None %}
+            <img src= "">
+            <img src="{{ graph }}">
+            {% endif %}
+          </p>
+        </td>
+      </tr>
+      <tr>
+        <td align="center" style="vertical-align: center">
+          <table>
+            
+            <tr align="center">
+              <th width="10%">
+                Критерий
+              </th>
+              <td colspan="2">
+              <input id="q1" name="q" type="radio" value="val1" checked> Учёт электроэнергии
+              <input id="q2" name="q" type="radio" value="val2"> Экономический
+              <input id="q3" name="q" type="radio" value="val3"> Суммарные траты
+              </td>
+            </tr>
+            <tr>
+              <th>
+                Модели
+              </th>
+            <td align="center">
+              <input id="n1" name="L" type="checkbox" value="val1"> L
+              <input id="n2" name="Q" type="checkbox" value="val2"> Q
+            </td>
+              <td><p align="center"><input type=submit value=Вычислить></p></td>
+            </tr>
+            {% for field in iso %}
+            <tr align="center">
+              <th>{{ field.label }}</th>
+              <td colspan="2">{{ field(size=12) }}</td>
+            </tr>
+            {% if field.errors %}
+            <td>
+              <ul class=errors>
+                {% for error in field.errors %}
+                <li><font color="red">{{ error }}</font></li>
+                {% endfor %}
+              </ul>
+            </td>
+            {% endif %}
+            </tr>
+            {% endfor %}
+          </table>
+        </td>
+      </tr>
+    </table>
+  </form>

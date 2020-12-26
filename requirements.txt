@@ -1,0 +1,6 @@
+Flask
+Jinja2
+Werkzeug
+WTForms
+numpy==1.19.3
+matplotlib
