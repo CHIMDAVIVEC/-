@@ -5,11 +5,6 @@ import sys
 
 app = Flask(__name__)
 
-try:
-    template_name = sys.argv[1]
-except IndexError:
-    template_name = 'view'
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
     iso = Isolines(request.form)
@@ -117,7 +112,7 @@ def index():
     else:
         graph = None
 
-    return render_template(template_name + '.html', iso=iso, tech=tech, econom=econom, electro=electro, graph=graph, opt=opt, maxl=maxl)
+    return render_template('view.html', iso=iso, tech=tech, econom=econom, electro=electro, graph=graph, opt=opt, maxl=maxl)
 
 if __name__ == '__main__':
     hport = port = int(os.environ.get('PORT', 33507))
