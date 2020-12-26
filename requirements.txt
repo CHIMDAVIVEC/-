@@ -4,3 +4,4 @@ Werkzeug
 WTForms
 numpy==1.19.3
 matplotlib
+gunicorn
