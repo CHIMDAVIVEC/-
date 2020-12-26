@@ -121,4 +121,4 @@ def index():
 
 if __name__ == '__main__':
     hport = port = int(os.environ.get('PORT', 33507))
-    app.run(port=hport, debug=False)
+    app.run(host='0.0.0.0', port=hport, debug=False)
