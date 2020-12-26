@@ -120,4 +120,12 @@ def index():
     return render_template(template_name + '.html', iso=iso, tech=tech, econom=econom, electro=electro, graph=graph, opt=opt, maxl=maxl)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80, debug=False)
+    ON_HEROKU = os.environ.get('ON_HEROKU')
+
+    if ON_HEROKU:
+        # get the heroku port
+        hport = int(os.environ.get('PORT', 17995))  # as per OP comments default is 17995
+    else:
+        hport = 3000
+    
+    app.run(host='0.0.0.0', port=hport, debug=False)
