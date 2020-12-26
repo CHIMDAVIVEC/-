@@ -1,1 +1,1 @@
-web: gunicorn --log-file=- controller:index --preload
+web: gunicorn --log-file=- controller:app --preload
