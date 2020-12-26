@@ -1,6 +1,6 @@
-Flask
-Jinja2
-Werkzeug
-WTForms
+flask
+jinja2
+werkzeug
+wtforms
 numpy==1.19.3
 matplotlib
